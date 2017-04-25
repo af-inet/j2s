@@ -9,7 +9,7 @@ def json_to_swagger(obj):
         "int": "integer",
         "float": "float",
         "dict": "object",
-        "list": "list",
+        "list": "array",
         "NoneType": None,
         "bool": "boolean"
     }
@@ -20,11 +20,19 @@ def json_to_swagger(obj):
         
         if type(obj[key]) is dict:
 
-            types[key] = json_to_swagger(obj[key])
+            types[key] = {
+                "type": "object",
+                "properties": json_to_swagger(obj[key])
+            }
 
         elif type(obj[key]) is list:
 
-            types[key] = [json_to_swagger(obj[key][0])] if len(obj[key]) > 0 else []
+            types[key] = {
+                "type": "array",
+            }
+
+            if len(obj[key]) > 0:
+                types[key]["items"] = json_to_swagger(obj[key][0])
 
         else:
 
