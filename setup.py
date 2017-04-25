@@ -4,7 +4,7 @@ from setuptools import setup
 setup(
     name="j2s",
 
-    version="1.0.0",
+    version="1.0.1",
 
     description="convert a json dictionary to a swagger definition",
 
